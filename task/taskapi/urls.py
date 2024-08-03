@@ -10,5 +10,6 @@ urlpatterns = [
     path('FetchInventory/', views.FetchInventory),
     path("DeleteInventory/", views.DeleteInventory),
     path('UpdateInventory/',views.UpdateInventory),
-    path("Joinning/",views.Joinning),   
+    path("Joinning/",views.Joinning),  
+     path('DeleteAllContents/', views.DeleteAllContents),  
 ]

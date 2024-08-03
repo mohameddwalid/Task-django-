@@ -196,9 +196,8 @@ def UpdateInventory(request):
 def Joinning(request):
     if request.method == "POST":
         try:
-            # Fetch products
+
             products = Product.objects.all()
-            # Create a dictionary for inventory data keyed by 'name'
             inventory_dict = {
                 inv.name: inv for inv in Inventories.objects.all()
             }
@@ -216,6 +215,27 @@ def Joinning(request):
                     })
             response = {
                 "results": result,
+            }
+            return JsonResponse(response, status=200)
+        except Exception as e:
+            response = {
+                "error": str(e),
+            }
+            return JsonResponse(response, status=400)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+    
+
+@csrf_exempt
+def DeleteAllContents(request):
+    if request.method == "POST":
+        try:
+            # Deleting all contents from Product and Inventories tables
+            Product.objects.all().delete()
+            Inventories.objects.all().delete()
+            
+            response = {
+                "message": "All contents deleted successfully",
             }
             return JsonResponse(response, status=200)
         except Exception as e:
